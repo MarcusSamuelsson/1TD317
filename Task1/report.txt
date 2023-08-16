@@ -1,0 +1,1 @@
+Semikolon saknades på rad 8. Detta ledde till kompileringsfelet i uppgiften.

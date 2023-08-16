@@ -1,0 +1,99 @@
+Kompletterande frågor -----------------------------------------------------------------------------------------
+    
+Tycker du att det finns någon fördel att använda funktioner för att utföra olika uppgifter i programmet, 
+jämfört med hur det såg ut i Inlämningsuppgift 2 där allt hände i huvudprogrammet?
+
+    Koden blir mycket lättare att förstå när allting inte ligger i samma funktion. Det gör det också lättare
+    att uttföra saker som input eller annat som görs flera gånger utan att behöva skriva samma kod flera gånger.
+
+I någon av dina skrivna funktioner använder du dig troligen av referensparametrar. Varför gör man inte det jämt?
+    
+    Eftersom att en referensparametrar använder sig av samma minne kan det vara bättre att skapa en ny kopia för
+    att ha tillgång till ett annat minne. Det är också så att det är osäkert med ägandeskap när man låter en annan
+    funktion använda sig av en lokal variabel från en funktion. 
+
+---------------------------------------------------------------------------------------------------------------
+
+This prints for all test at the top(Just to not have duplicates everywhere):
+    This program performs simple calculations given two numbers and an operator.
+
+    The operators are the following:
+        a: Addera tal(Example: input 1 and 4 gives 1+2+3+4=10)
+        m: Multiplicera tal(Example: input 1 and 4 gives 1*2*3*4=24)
+        k: Beräkna kvadratsumman av tal(Example: input 3 and 5 gives 3*3 + 4*4 + 5*5=50)
+
+Test 1:
+    Enter a number to be in the calculation: 3
+
+    Enter a number to be in the calculation: 5
+
+    Enter an operator(a, m or k): a
+
+    Result: 12
+
+Test 2:
+    Enter a number to be in the calculation: 3
+
+    Enter a number to be in the calculation: 5
+
+    Enter an operator(a, m or k): m
+
+    Result: 60
+
+Test 3:
+    Enter a number to be in the calculation: 3
+
+    Enter a number to be in the calculation: 5
+
+    Enter an operator(a, m or k): k
+
+    Result: 50
+
+Test 4:
+    Enter a number to be in the calculation: -3
+
+    Enter a number to be in the calculation: 5
+
+    Enter an operator(a, m or k): m
+
+    Result: -0
+
+Test 5:
+    Enter a number to be in the calculation: 5
+
+    Enter a number to be in the calculation: 3
+
+    Enter an operator(a, m or k): a
+
+    Result: 12
+
+Test 6:
+    Enter a number to be in the calculation: -3
+
+    Enter a number to be in the calculation: -5
+
+    Enter an operator(a, m or k): a
+
+    Result: -12
+
+Test 7:
+    Enter a number to be in the calculation: 1
+
+    Enter a number to be in the calculation: 100
+
+    Enter an operator(a, m or k): k
+
+    Result: 338350
+
+Test 8:
+    Enter a number to be in the calculation: 1
+
+    Enter a number to be in the calculation: 1000
+
+    Enter an operator(a, m or k): m
+
+    Result: inf
+
+Test 8 kommentar:
+    Jag tror att numeret som kommer av fakulteten av 1000 är för stort för en
+    double vilket leder till resultatet av inf

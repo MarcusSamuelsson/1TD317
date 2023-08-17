@@ -218,9 +218,9 @@ double PersonLista:: summaSkyldig()
 {
     double totalDebt = 0;
 
-    for(Person person : personer) 
+    for(int i = 0; i < antal_personer; i++) 
     {
-        totalDebt += person.hamtaSkyldig();
+        totalDebt += personer[i].hamtaSkyldig();
     }
 
     return totalDebt;
@@ -230,9 +230,9 @@ double PersonLista:: summaBetalat()
 {
     double totalPayed = 0;
 
-    for(Person person : personer) 
+    for(int i = 0; i < antal_personer; i++) 
     {
-        totalPayed += person.hamtaBetalat();
+        totalPayed += personer[i].hamtaBetalat();
     }
 
     return totalPayed;
@@ -240,9 +240,9 @@ double PersonLista:: summaBetalat()
 
 bool PersonLista:: finnsPerson(const string& namn)
 {
-    for(Person person : personer) 
+    for(int i = 0; i < antal_personer; i++) 
     {
-        if(person.hamtaNamn() == namn)
+        if(personer[i].hamtaNamn() == namn)
         {
             return true;
         }
@@ -292,9 +292,9 @@ double TransaktionsLista:: totalKostnad()
 {
     double totalPayed = 0;
 
-    for(Transaktion t : transaktioner)
+    for(int i = 0; i < antal_transaktioner; i++)
     {
-        totalPayed += t.hamtaBelopp();
+        totalPayed += transaktioner[i].hamtaBelopp();
     }
 
     return totalPayed;

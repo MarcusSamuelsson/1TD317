@@ -20,11 +20,16 @@ const int ANTAL_BOKSTAVER = 26;  //A-Z
 // Funktionsdeklarationer:
 // Anv�nd exakt de funktionsnamn som finns nedan
 
-// Funktionen berakna_histogram_abs
+//***************************************************************************
+//Funktion berakna_histogram_abs
+//Syfte: Beräknar antalet av bokstäver A-Z i given string till array.
+//Inparametrar: txt - text som ska räknas på
+//              count - array för varje bokstav där antalet anges
 void berakna_histogram_abs(string txt, int count[]) 
 {
   cout << txt << endl;
 
+  //Gå igenom och räkna på alla A-Z bokstäver och sätt i count[]
   for(int i = 0; i < txt.length(); i++)
   {
     int let = tolower(txt.at(i)) -97;
@@ -37,19 +42,25 @@ void berakna_histogram_abs(string txt, int count[])
     }
   }
 }
+//***************************************************************************
 
-// Funktionen skriv_histogram_abs
+//***************************************************************************
+//Funktion skriv_histogram_abs
+//Syfte: Skriv ut array av antalet bokstäver i text
+//Inparametrar: count - array för varje bokstav där antalet är givet
 void skriv_histogram_abs(int count[]) 
 {
+  //Skriv ut varje bokstav och dess instancer
   for(int i = 0; i < ANTAL_BOKSTAVER; i++)
   {
     cout << (char)(i+65) << ": " << count[i] << endl;
   }
 }
+//***************************************************************************
 
-//--------------------------------------------------------
-// Huvudprogram:
-
+//***************************************************************************
+//Funktion main
+//Syfte: Kallar alla funktioner och kör programmet.
 int main()
 {
   // Deklarera variabler
@@ -73,9 +84,12 @@ int main()
 
   return 0;
 }
+//***************************************************************************
 
 //--------------------------------------------------------
 // Funktionsdefinitioner:
 
 
 // Redovisning av uppgiften i ord. 
+// Uppgiften är att skapa ett histogram på en input från användaren
+// i en lista där antalet av varje bokstav räknas.

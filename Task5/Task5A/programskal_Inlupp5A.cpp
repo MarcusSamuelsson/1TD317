@@ -46,19 +46,28 @@ const double TOLK_HJALP[ANTAL_SPRAK][ANTAL_BOKSTAVER]=
 //--------------------------------------------------------
 // H�r kommer klassdeklarationen
 class Text {
-  public:
+  private:
     string text;
     int histogram[ANTAL_BOKSTAVER] = {0};
     int totalLetters = 0;
 
+  public:
+  //***************************************************************************
+  //Funktion setText
+  //Syfte: Sätter text till inskickad text.
+  //Inparametrar: nyText - texten som ska räknas på
   void setText(const string &nyText) 
   {
     text = nyText;
   }
+  //***************************************************************************
 
+  //***************************************************************************
+  //Funktion berakna_histogram_abs
+  //Syfte: Beräknar antalet av bokstäver A-Z i given string till array.
   bool beraknaHistogramAbs()
   {
-    //Gå igenom och räkna på alla A-Z bokstäver och sätt i count[]
+    //Gå igenom och räkna på alla A-Z bokstäver och sätt i histogram och räkna totala antalet
     for(int i = 0; i < text.length(); i++)
     {
       int let = tolower(text.at(i)) -97;
@@ -77,21 +86,29 @@ class Text {
 
     return false;
   }
+  //***************************************************************************
 
+  //***************************************************************************
+  //Funktion skriv_histogram_abs
+  //Syfte: Skriv ut array av antalet bokstäver i text
   void skrivHistogramAbs() 
   {
-    //Skriv ut varje bokstav och dess instancer
+    //Skriv ut histogram
     for(int i = 0; i < ANTAL_BOKSTAVER; i++)
     {
       cout << (char)(i+65) << ": " << histogram[i] << endl;
     }
   }
+  //***************************************************************************
 };
 
 // -------------------------------------------------------
 
 // Huvudprogram:
 
+//***************************************************************************
+//Funktion main
+//Syfte: Kallar alla funktioner och kör programmet.
 int main()
 {
  // Deklarera variabler
@@ -111,6 +128,7 @@ int main()
 
   return 0;
 }
+//***************************************************************************
 
 // -------------------------------------------------------
 // H�r skriver du klassimplementationen

@@ -84,27 +84,53 @@ class TransaktionsLista
         PersonLista FixaPersoner();
 }; 
 
+//***************************************************************************
+//Funktion Transaktion
+//Syfte: Konstruktor för Transaktion.
 Transaktion:: Transaktion()
 : datum(""), typ(""), namn(""), belopp(0), antal_kompisar(0)
 {}
+//***************************************************************************
 
+//***************************************************************************
+//Funktion hamtaNamn
+//Syfte: Hämtar namn från Transaktion.
+//Utparametrar: namn - namnet på personen som gjorde transaktionen
 string Transaktion:: hamtaNamn() 
 {
     return namn;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion hamtaAntalKompisar
+//Syfte: Hämtar antalet kompisar på en transaktion.
+//Utparametrar: antal_kompisar - Antalet vänner med på transaktionen
 int Transaktion:: hamtaAntalKompisar() 
 {
     return antal_kompisar;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion hamtaBelopp
+//Syfte: Hämtar antalet belopp på en transaktion.
+//Utparametrar: belopp - Beloppet på transaktionen
 double Transaktion:: hamtaBelopp() 
 {
     return belopp;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion finnsKompis
+//Syfte: Kollar om en kompis är med i en transaktion baserat på ett namn.
+//Inparametrar: namnet - namnet på personen som kollas upp.
+//Utparametrar: true - kompisen finns
+//            : false - kompisen finns inte
 bool Transaktion:: finnsKompis(const string &namnet) 
 {
+    //Går igenom alla kompisar och letar efter ett namn
     for(int i = 0; i < antal_kompisar; i++) 
     {
         if(kompisar[i] == namnet)
@@ -115,29 +141,49 @@ bool Transaktion:: finnsKompis(const string &namnet)
 
     return false;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion skrivUt
+//Syfte: Skriver ut infomation om en transaktion.
+//Inparametrar: os - output streamen där text ska skrivas ut.
 void Transaktion:: skrivUt(ostream &os) 
 {
-    os << datum << " " << typ << " " << namn << " " << belopp << " " << antal_kompisar << " ";
+    os << datum << "\t" << typ << "\t" << namn << "\t" << belopp << "\t" << antal_kompisar << "\t\t";
 
+    //Går igenom alla kompisar och skriver ut dom
     for(int i = 0; i < antal_kompisar; i++) 
     {
-        os << kompisar[i] << " ";
+        os << kompisar[i] << "\t";
     }
     
     os << endl;
 }
+//***************************************************************************
 
+
+//***************************************************************************
+//Funktion skrivTitel
+//Syfte: Skriver ut infomation om hur en transaktion ska skrivas in.
+//Inparametrar: os - output streamen där text ska skrivas ut.
 void Transaktion:: skrivTitel(ostream &os) 
 {
-    cout << "(Layout)  Datum   Typ     Namn    Belopp  Antal personer    Namn på kompisar " << endl;
-    cout << "(Exempel) 190721  mat     Eva     200     1                 Bosse  Lisa" << endl;
+    cout << "(Layout)\tDatum\tTyp\tNamn\tBelopp\tAntal personer\tNamn på kompisar " << endl;
+    cout << "(Exempel)\t190721\tmat\tEva\t200\t1\t\tBosse\tLisa" << endl;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion lasIn
+//Syfte: Läser in infomation om en transaktion.
+//Inparametrar: is - input streamen med informationen.
+//Utparametrar: true - input stream är inte klar
+//            : false - input stream är vid eof
 bool Transaktion:: lasIn(istream &is) 
 {
     is >> datum >> typ >> namn >> belopp >> antal_kompisar;
 
+    //Går igenom alla vänner och lägger till dom i kompisar
     for(int i = 0; i < antal_kompisar; i++)
     {
         is >> kompisar[i];
@@ -145,36 +191,68 @@ bool Transaktion:: lasIn(istream &is)
 
     return !is.eof();
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion Person
+//Syfte: Konstruktor för Person.
 Person:: Person()
 : namn(""), betalat_andras(0), skyldig(0)
 {}
+//***************************************************************************
 
+//***************************************************************************
+//Funktion Person
+//Syfte: Konstruktor för Person.
+//Inparametrar: namn - namnet på personen.
+//            : betalat_andras - utlagda pengar av personen
+//            : skyldig - det personen är skyldig
 Person:: Person(const string &namn, double betalat_andras, double skyldig)
 : namn(namn), betalat_andras(betalat_andras), skyldig(skyldig)
 {}
+//***************************************************************************
 
+//***************************************************************************
+//Funktion hamtaNamn
+//Syfte: Hämtar namn från Person.
+//Utparametrar: namn - namnet på personen
 string Person:: hamtaNamn() 
 {
     return namn;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion hamtaBetalat
+//Syfte: Hämtar vad Person har betalat.
+//Utparametrar: betalat_andras - vad personen har betalat
 double Person:: hamtaBetalat() 
 {
     return betalat_andras;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion hamtaSkyldig
+//Syfte: Hämtar vad Person är skyldig.
+//Utparametrar: skyldig - vad personen är skyldig
 double Person:: hamtaSkyldig() 
 {
     return skyldig;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion skrivUt
+//Syfte: Skriver ut infomation om en person.
+//Inparametrar: os - output streamen där text ska skrivas ut.
 void Person:: skrivUt(ostream &os) 
 {
     double payed = hamtaBetalat();
     double debt = hamtaSkyldig();
     double tot = payed - debt;
 
+    //Skriver ut text baserat på om ligger till med skulder och betalningar
     if(tot > 0)
     {
         cout << hamtaNamn() << " ligger ute med " << payed << " och är skyldig " << debt << ". Skall ha " << tot << " från potten!" << endl;
@@ -188,13 +266,23 @@ void Person:: skrivUt(ostream &os)
         cout << hamtaNamn() << " ligger ute med " << payed << " och är skyldig " << debt << ". Är kvitt!" << endl;
     }
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion PersonLista
+//Syfte: Konstruktor för PersonLista.
 PersonLista:: PersonLista()
 : antal_personer(0)
 {}
+//***************************************************************************
 
+//***************************************************************************
+//Funktion laggTill
+//Syfte: Lägg till en ny person i personlistan.
+//Inparametrar: ny_person - ny personen som ska läggas till.
 void PersonLista:: laggTill(Person ny_person)
 {
+    //Går igenom listan för att hitta en tom plats att lägga in en ny person
     for(int i = 0; i < MAX_PERSONER; i++) 
     {
         if(personer[i].hamtaNamn() == "")
@@ -205,19 +293,32 @@ void PersonLista:: laggTill(Person ny_person)
         }
     } 
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion skrivUtOchFixa
+//Syfte: Skriver ut infomation om alla personer.
+//Inparametrar: os - output streamen där text ska skrivas ut.
 void PersonLista:: skrivUtOchFixa(ostream &os)
 {
+    //Går igenom och skriver ut info för alla personer
     for(int i = 0; i < antal_personer; i++) 
     {
         personer[i].skrivUt(os);
     }
 }
+//***************************************************************************
 
+
+//***************************************************************************
+//Funktion summaSkyldig
+//Syfte: Räknar ut den totala skulden för alla.
+//Utparametrar: totalDebt - den totala skulden.
 double PersonLista:: summaSkyldig()
 {
     double totalDebt = 0;
 
+    //räkar ihop alla skulder
     for(int i = 0; i < antal_personer; i++) 
     {
         totalDebt += personer[i].hamtaSkyldig();
@@ -225,11 +326,17 @@ double PersonLista:: summaSkyldig()
 
     return totalDebt;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion summaBetalat
+//Syfte: Räknar ut den totala betalningarna för alla.
+//Utparametrar: totalPayed - den totala betalningen.
 double PersonLista:: summaBetalat()
 {
     double totalPayed = 0;
 
+    //räkar ihop alla betalningar
     for(int i = 0; i < antal_personer; i++) 
     {
         totalPayed += personer[i].hamtaBetalat();
@@ -237,9 +344,17 @@ double PersonLista:: summaBetalat()
 
     return totalPayed;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion finnsPerson
+//Syfte: Kollar om personen finns i personlistan.
+//Inparametrar: namn - Namn på personen.
+//Utparametrar: true - om personen finns
+//            : false - om personen inte finns
 bool PersonLista:: finnsPerson(const string& namn)
 {
+    //Går igenom personer och kollar efter någon som matchan namn
     for(int i = 0; i < antal_personer; i++) 
     {
         if(personer[i].hamtaNamn() == namn)
@@ -250,11 +365,20 @@ bool PersonLista:: finnsPerson(const string& namn)
     
     return false;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion TransaktionsLista
+//Syfte: Konstruktor för TransaktionsLista.
 TransaktionsLista:: TransaktionsLista()
 : antal_transaktioner(0)
 {}
+//***************************************************************************
 
+//***************************************************************************
+//Funktion lasIn
+//Syfte: Läser in transaktioner till transaktionslistan.
+//Inparametrar: is - input streamen med informationen.
 void TransaktionsLista:: lasIn(istream & is)
 {
     // En inläsningsmetod i klassen TransaktionsLista.
@@ -267,17 +391,31 @@ void TransaktionsLista:: lasIn(istream & is)
         laggTill( t );
     }
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion skrivUt
+//Syfte: Skriver ut infomation om alla transaktioner.
+//Inparametrar: os - output streamen där text ska skrivas ut.
 void TransaktionsLista:: skrivUt(ostream & os)
 {
+    cout << "Datum\tTyp\tNamn\tBelopp\tAntal personer\tNamn på kompisar " << endl;
+
+    //Går igenom och skriver ut alla transaktioner
     for(int i = 0; i < antal_transaktioner; i++)
     {
         transaktioner[i].skrivUt(os);
     }
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion laggTill
+//Syfte: Lägg till en ny transaktion i transaktionslistan.
+//Inparametrar: t - ny transaktion som ska läggas till.
 void TransaktionsLista:: laggTill(Transaktion & t)
 {
+    //Går igenom listan för att hitta en tom plats att lägga in en ny transaktion
     for(int i = 0; i < MAX_TRANSAKTIONER; i++) 
     {
         if(transaktioner[i].hamtaNamn() == "")
@@ -287,11 +425,17 @@ void TransaktionsLista:: laggTill(Transaktion & t)
         }
     } 
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion totalKostnad
+//Syfte: Räknar ut den totala kostnaden för alla.
+//Utparametrar: totalPayed - den totala kostnaden.
 double TransaktionsLista:: totalKostnad()
 {
     double totalPayed = 0;
 
+    //Kollar igenom alla transaktioner och räknar på totalbelopp
     for(int i = 0; i < antal_transaktioner; i++)
     {
         totalPayed += transaktioner[i].hamtaBelopp();
@@ -299,22 +443,36 @@ double TransaktionsLista:: totalKostnad()
 
     return totalPayed;
 }
+//***************************************************************************
 
-// En möjlig implementering av liggerUteMed.
+//***************************************************************************
+//Funktion liggerUteMed
+//Syfte: Räknar ut den vad en person ligger ute med.
+//Inparametrar: namn - namn på en person.
+//Utparametrar: summa - summa av betelningar för en person.
 double TransaktionsLista:: liggerUteMed(const string &namn)
 {
     double summa = 0.;
+
+    //Räknar ut total betalning för en person
     for (int i = 0; i < antal_transaktioner; i++)
         if (transaktioner[i].hamtaNamn() == namn)
         summa += transaktioner[i].hamtaBelopp() *
                 (1.0 - 1.0 / (double)(transaktioner[i].hamtaAntalKompisar() + 1));
     return summa;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion arSkyldig
+//Syfte: Räknar ut den vad en person är skyldig.
+//Inparametrar: namn - namn på en person.
+//Utparametrar: skuld - summa av skulder för en person.
 double TransaktionsLista:: arSkyldig(const string &namnet)
 {
     double skuld = 0;
 
+    //Räknar ut total skuld för en person
     for (int i = 0; i < antal_transaktioner; i++) 
     {
         if (transaktioner[i].finnsKompis(namnet))
@@ -327,11 +485,18 @@ double TransaktionsLista:: arSkyldig(const string &namnet)
         
     return skuld;
 }
+//***************************************************************************
 
+//***************************************************************************
+//Funktion FixaPersoner
+//Syfte: Går igenom person för person och räknar ut skulder, betalningar och 
+//om personer ska lägga till potten eller få från potten.
+//Utparametrar: pl - En ny PersonLista.
 PersonLista TransaktionsLista:: FixaPersoner()
 {
     PersonLista pl;
 
+    //Går igenom alla transaktioner och hittar unika personer
     for(int i = 0; i < antal_transaktioner; i++) 
     {
         string name = transaktioner[i].hamtaNamn();
@@ -345,6 +510,7 @@ PersonLista TransaktionsLista:: FixaPersoner()
 
     return pl;
 }
+//***************************************************************************
 
 
 

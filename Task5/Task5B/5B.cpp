@@ -46,12 +46,13 @@ const double TOLK_HJALP[ANTAL_SPRAK][ANTAL_BOKSTAVER]=
 //--------------------------------------------------------
 // H�r kommer klassdeklarationen
 class Text {
-  public:
+  private:
     string text;
     int histogram[ANTAL_BOKSTAVER] = {0};
     double histogramRel[ANTAL_BOKSTAVER] = {0};
     int totalLetters = 0;
 
+  public:
   //***************************************************************************
   //Funktion setText
   //Syfte: Sätter text till inskickad text.

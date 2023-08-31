@@ -57,6 +57,7 @@ class PersonLista
     public:
         PersonLista();
         ~PersonLista();
+        PersonLista& operator=(const PersonLista& pl);
         void   laggTill(Person ny_person);
         void   skrivUtOchFixa(ostream &os);
         double summaSkyldig();
@@ -73,9 +74,10 @@ class TransaktionsLista
     public:
         TransaktionsLista();
         ~TransaktionsLista();
+        TransaktionsLista& operator=(const TransaktionsLista& tl);
         void   lasIn(istream & is);
         void   skrivUt(ostream & os);
-        void   laggTill(Transaktion & t);
+        void   laggTill(const Transaktion & t);
         double totalKostnad();
         double liggerUteMed(const string &namnet);
         double arSkyldig(const string &namnet);
@@ -99,7 +101,8 @@ Transaktion& Transaktion::operator=( const Transaktion& t)
 {
   if (this != &t)
     {
-      delete[] kompisar;
+      if(antal_kompisar > 0)
+        delete[] kompisar;
       datum          = t.datum;
       typ            = t.typ;
       namn           = t.namn;
@@ -320,12 +323,36 @@ PersonLista:: ~PersonLista()
 //***************************************************************************
 
 //***************************************************************************
+//Funktion operator
+//Syfte: Implementationen av tilldelningsoperatorn.
+//Inparametrar: pl - PersonLista.
+//Utparametrar: *this - this
+PersonLista& PersonLista::operator=(const PersonLista& pl)
+{
+    if(this != &pl)
+    {
+        if(antal_personer > 0)
+            delete[] personer;
+        antal_personer = pl.antal_personer;
+        personer = new Person[antal_personer];
+        for (int i = 0; i < antal_personer; i++)
+        {
+            personer[i] = pl.personer[i];
+        }
+    }
+
+    return *this;
+}
+//***************************************************************************
+
+//***************************************************************************
 //Funktion laggTill
 //Syfte: Lägg till en ny person i personlistan.
 //Inparametrar: ny_person - ny personen som ska läggas till.
 void PersonLista:: laggTill(Person ny_person)
 {
-    Person *newPersons = new Person[antal_personer+1];
+    Person *newPersons = 0;
+    newPersons = new Person[antal_personer+1];
 
     //Kopierar den gamla listan till den nya med mera plats allokerat
     for(int i = 0; i < antal_personer; i++) 
@@ -340,6 +367,8 @@ void PersonLista:: laggTill(Person ny_person)
         delete [] personer;
 
     personer = newPersons;
+
+    cout << "laggtill person done" << endl;
 }
 //***************************************************************************
 
@@ -432,6 +461,29 @@ TransaktionsLista::~TransaktionsLista()
 //***************************************************************************
 
 //***************************************************************************
+//Funktion operator
+//Syfte: Implementationen av tilldelningsoperatorn.
+//Inparametrar: tl - TransaktionsLista.
+//Utparametrar: *this - this
+TransaktionsLista& TransaktionsLista::operator=(const TransaktionsLista& tl)
+{
+    if(this != &tl)
+    {
+        if(antal_transaktioner > 0)
+            delete[] transaktioner;
+        antal_transaktioner = tl.antal_transaktioner;
+        transaktioner = new Transaktion[antal_transaktioner];
+        for (int i = 0; i < antal_transaktioner; i++)
+        {
+            transaktioner[i] = tl.transaktioner[i];
+        }
+    }
+
+    return *this;
+}
+//***************************************************************************
+
+//***************************************************************************
 //Funktion lasIn
 //Syfte: Läser in transaktioner till transaktionslistan.
 //Inparametrar: is - input streamen med informationen.
@@ -468,10 +520,9 @@ void TransaktionsLista:: skrivUt(ostream & os)
 //Funktion laggTill
 //Syfte: Lägg till en ny transaktion i transaktionslistan.
 //Inparametrar: t - ny transaktion som ska läggas till.
-void TransaktionsLista:: laggTill(Transaktion & t)
+void TransaktionsLista:: laggTill(const Transaktion & t)
 {
-    Transaktion * trans = 0;
-    trans = new Transaktion[antal_transaktioner+1];
+    Transaktion * trans = new Transaktion[antal_transaktioner+1];
 
     //Kopierar den gamla listan till den nya med mera plats allokerat
     for(int i = 0; i < antal_transaktioner; i++) 
@@ -486,6 +537,7 @@ void TransaktionsLista:: laggTill(Transaktion & t)
         delete [] transaktioner;
 
     transaktioner = trans;
+
 }
 //***************************************************************************
 
@@ -584,7 +636,7 @@ int main()
   cout << "Startar med att läsa från en fil." << endl;
 
   TransaktionsLista transaktioner;
-  std::ifstream     is("resa.txt");
+  std::ifstream     is("resa3.txt");
   transaktioner.lasIn(is);
 
   int operation = 1;
